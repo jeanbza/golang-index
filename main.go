@@ -88,7 +88,7 @@ type repoTag struct {
 
 type index struct {
 	// v3 API
-	// TODO(jbarkhuysen): Re-write all rest client calls with the graphql client
+	// TODO(jeanbza): Re-write all rest client calls with the graphql client
 	// to simplify.
 	restClient *github.Client
 	// v4 API
@@ -169,7 +169,7 @@ func (i *index) tagsForRepos(ctx context.Context, repos <-chan string) error {
 		}
 		fmt.Printf("got %d tags for %s\n", len(tags), repoName)
 
-		// TODO(jbarkhuysen): If we get a lot of lock contention, consider
+		// TODO(jeanbza): If we get a lot of lock contention, consider
 		// batching this.
 		i.mu.Lock()
 		i.repoTags[repoName] = tags
