@@ -34,6 +34,14 @@ cd pkgsite
 GO_MODULE_INDEX_URL=http://localhost:8081 go run cmd/worker/main.go -bypass_license_check=true
 ```
 
+You may also be interested in periodically poking the worker to go do work with
+something like:
+
+```sh
+# Assuming the worker is running at localhost:8000.
+while true ; do date && curl localhost:8000/enqueue && curl localhost:8000/poll && sleep 20; done;
+```
+
 ## Caveat emptor
 
 There are lots of caveats:
