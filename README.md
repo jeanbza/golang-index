@@ -22,6 +22,18 @@ Then, run the app: `go run . -githubHostName=github.mycompany.net -githubAuthTok
 
 [seeddb](https://cs.opensource.google/go/x/pkgsite/+/master:devtools/cmd/seeddb/) processes modules serially, which means that any time you're trying to query >100 modules it slows down quite a bit. It's easy to work around this problem, but I figured it'd be nicer to get the worker to do work, since it comes with a bunch of niceties that you'd want from seeddb eventually.
 
+### Usage with pkgsite worker
+
+Point the pkgsite worker at this like so:
+
+1. Make the worker accept a non-https index by commenting out the https validation at `pkgsite/internal/index/index.go`'s `New()` function.
+1. Run the worker:
+
+```sh
+cd pkgsite
+GO_MODULE_INDEX_URL=http://localhost:8081 go run cmd/worker/main.go -bypass_license_check=true
+```
+
 ## Caveat emptor
 
 There are lots of caveats:
@@ -29,6 +41,6 @@ There are lots of caveats:
 - This fetches _every repo and tag_. It's only useful for github instances with a small/medium amount of content (~1000 repos with ~100 tags each, for example).
 - This never updates its list of repos.
 - This does not implement the full set of https://sum.golang.org/ -specified index features.
-- pkgsite/worker expects the index to have an https endpoint. This only serves http. You can get around this issue by commenting out the https validation at `pkgsite/internal/index/index.go`'s `New()` function.
+- pkgsite/worker expects the index to have an https endpoint. This only serves http.
 
 Most of these are easy to fix, and may be fixed in the future.
