@@ -32,6 +32,7 @@ type JSONOut struct {
 }
 
 func main() {
+	flag.Parse()
 	ctx := context.Background()
 
 	i, err := newIndex(ctx)
