@@ -36,7 +36,7 @@ func main() {
 	ctx := context.Background()
 
 	if *githubHostName == "" || *githubAuthToken == "" {
-		fmt.Println("--githubHostName and --githubAuthToken are required")
+		fmt.Println("--githubHostName (no http/https: github.mycompany.net) and --githubAuthToken are required")
 		os.Exit(1)
 	}
 
