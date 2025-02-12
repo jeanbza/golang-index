@@ -35,6 +35,11 @@ func main() {
 	flag.Parse()
 	ctx := context.Background()
 
+	if *githubHostName == "" || *githubAuthToken == "" {
+		fmt.Println("--githubHostName and --githubAuthToken are required")
+		os.Exit(1)
+	}
+
 	i, err := newIndex(ctx)
 	if err != nil {
 		fmt.Println(fmt.Errorf("error instantiating index: %v", err))
